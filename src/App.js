@@ -25,7 +25,6 @@ class App extends Component {
       ])
       .then(
         axios.spread((cityResponse, weatherResponse) => {
-          console.log("weatherResponse is: ", weatherResponse);
           this.setState({ cityData: cityResponse.data, weatherData: weatherResponse.data });
         })
       )
@@ -65,17 +64,38 @@ class App extends Component {
     switch (descriptor) {
       case "partly-cloudy-night":
         return "PARTLY_CLOUDY_NIGHT";
+      case "partly-cloudy-day":
+        return "PARTLY_CLOUDY_DAY";
+      case "clear-day":
+        return "CLEAR_DAY";
+      case "clear-night":
+        return "CLEAR_NIGHT";
+      case "wind":
+        return "WIND";
+      case "rain":
+        return "RAIN";
+      case "cloudy":
+        return "CLOUDY";
+      case "sleet":
+        return "SLEET";
+      case "snow":
+        return "SNOW";
+      case "fog":
+        return "FOG";
     }
   };
   to_getDay = time => {
-    console.log("time is: ", time);
     let unixDate;
     let short_days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-
-    // This below is wrong, shouldn't be passing unix time into Date.
-    unixDate = new Date(time);
-    console.log("unixDate is: ", unixDate);
+    unixDate = new Date(time * 1000);
     return short_days[unixDate.getDay()];
+  };
+  toggleThreeDay = amount => {
+    if (amount === "five") {
+      this.setState({ threeDay: false });
+    } else {
+      this.setState({ threeDay: true });
+    }
   };
 
   render() {
@@ -88,6 +108,11 @@ class App extends Component {
     let today = new Date();
     let month = today.toLocaleString("en-us", { month: "long" });
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let daily, currently;
+    if (this.state.weatherData) {
+      currently = this.state.weatherData.currently;
+      daily = this.state.weatherData.daily.data;
+    }
 
     return (
       <div className="App">
@@ -104,13 +129,13 @@ class App extends Component {
         {this.state.weatherData ? (
           <div>
             <ReactAnimatedWeather
-              icon={this.getIcon(this.state.weatherData.currently.icon)}
+              icon={this.getIcon(currently.icon)}
               color={defaults.color}
               size={200}
               animate={defaults.animate}
             />
-            <div>{this.state.weatherData.currently.temperature.toFixed(0)}°</div>
-            <div>{this.state.weatherData.currently.summary}</div>
+            <div>{currently.temperature.toFixed(0)}°</div>
+            <div>{currently.summary}</div>
           </div>
         ) : (
           <div>
@@ -125,21 +150,136 @@ class App extends Component {
         )}
         <div className="bottom">
           <div className="buttons">
-            <button>3 Day</button>
+            <button onClick={() => this.toggleThreeDay("three")}>3 Day</button>
             <span> | </span>
-            <button>5 Day</button>
+            <button onClick={() => this.toggleThreeDay("five")}>5 Day</button>
           </div>
           <div className="forecast">
             {this.state.weatherData ? (
               <div>
                 {this.state.threeDay ? (
-                  <div className="threeday">
-                    <div>{this.to_getDay(this.state.weatherData.daily.data[0].time)}</div>
-                    <div>{this.to_getDay(this.state.weatherData.daily.data[1].time)}</div>
-                    <div>{this.to_getDay(this.state.weatherData.daily.data[2].time)}</div>
+                  <div className="threedays">
+                    <div className="threeday">
+                      <div>{this.to_getDay(daily[1].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[1].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[1].summary}</div>
+                      <div>
+                        {daily[1].temperatureMax.toFixed(0)}° | {daily[1].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="threeday">
+                      <div>{this.to_getDay(daily[2].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[2].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[2].summary}</div>
+                      <div>
+                        {daily[2].temperatureMax.toFixed(0)}° | {daily[2].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="threeday">
+                      <div>{this.to_getDay(daily[3].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[3].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[3].summary}</div>
+                      <div>
+                        {daily[3].temperatureMax.toFixed(0)}° | {daily[3].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
                   </div>
                 ) : (
-                  <div className="five-day">Five Day Forecast</div>
+                  <div className="fivedays">
+                    {" "}
+                    <div className="fiveday">
+                      {" "}
+                      <div>{this.to_getDay(daily[1].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[1].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[1].summary}</div>
+                      <div>
+                        {daily[1].temperatureMax.toFixed(0)}° | {daily[1].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="fiveday">
+                      <div>{this.to_getDay(daily[2].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[2].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[2].summary}</div>
+                      <div>
+                        {daily[2].temperatureMax.toFixed(0)}° | {daily[2].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="fiveday">
+                      {" "}
+                      <div>{this.to_getDay(daily[3].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[3].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[3].summary}</div>
+                      <div>
+                        {daily[3].temperatureMax.toFixed(0)}° | {daily[3].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="fiveday">
+                      {" "}
+                      <div>{this.to_getDay(daily[4].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[4].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[4].summary}</div>
+                      <div>
+                        {daily[4].temperatureMax.toFixed(0)}° | {daily[4].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                    <div className="fiveday">
+                      {" "}
+                      <div>{this.to_getDay(daily[5].time)}</div>
+                      <ReactAnimatedWeather
+                        icon={this.getIcon(daily[5].icon)}
+                        color="black"
+                        size={125}
+                        animate={defaults.animate}
+                      />
+                      <div>{daily[5].summary}</div>
+                      <div>
+                        {daily[5].temperatureMax.toFixed(0)}° | {daily[5].temperatureMin.toFixed(0)}
+                        °
+                      </div>
+                    </div>
+                  </div>
                 )}{" "}
               </div>
             ) : null}
