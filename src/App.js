@@ -12,6 +12,27 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    axios
+      .all([
+        axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=29.7604,-95.3698&key=AIzaSyDEPcm9glqHYP2SkAubicuE9A4pPlsZjI0`
+        ),
+        axios.get(
+          `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/1ea2d54ed66f54e9be6e30f638711be9/29.7604,-95.3698`
+        )
+      ])
+      .then(
+        axios.spread((cityResponse, weatherResponse) => {
+          console.log("weatherResponse is: ", weatherResponse);
+          this.setState({ cityData: cityResponse.data, weatherData: weatherResponse.data });
+        })
+      )
+      .catch(err => {
+        console.log(err.message);
+      });
+  }
+
   getCity = position => {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -78,7 +99,7 @@ class App extends Component {
               size={200}
               animate={defaults.animate}
             />
-            <div>{this.state.weatherData.currently.temperature.toFixed(0)}</div>
+            <div>{this.state.weatherData.currently.temperature.toFixed(0)}°</div>
             <div>{this.state.weatherData.currently.summary}</div>
           </div>
         ) : (
@@ -89,7 +110,7 @@ class App extends Component {
               size={200}
               animate={defaults.animate}
             />
-            <div>59</div>
+            <div>59°</div>
           </div>
         )}
       </div>
