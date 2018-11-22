@@ -8,7 +8,8 @@ class App extends Component {
     super();
     this.state = {
       cityData: "",
-      weatherData: ""
+      weatherData: "",
+      threeDay: true
     };
   }
 
@@ -61,11 +62,20 @@ class App extends Component {
   };
 
   getIcon = descriptor => {
-    console.log("descriptor is: ", descriptor);
     switch (descriptor) {
       case "partly-cloudy-night":
         return "PARTLY_CLOUDY_NIGHT";
     }
+  };
+  to_getDay = time => {
+    console.log("time is: ", time);
+    let unixDate;
+    let short_days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
+    // This below is wrong, shouldn't be passing unix time into Date.
+    unixDate = new Date(time);
+    console.log("unixDate is: ", unixDate);
+    return short_days[unixDate.getDay()];
   };
 
   render() {
@@ -78,7 +88,7 @@ class App extends Component {
     let today = new Date();
     let month = today.toLocaleString("en-us", { month: "long" });
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    console.log("this.state.weatherData: ", this.state.weatherData);
+
     return (
       <div className="App">
         <button onClick={this.locateMe}>Locate Me</button>
@@ -113,6 +123,28 @@ class App extends Component {
             <div>59°</div>
           </div>
         )}
+        <div className="bottom">
+          <div className="buttons">
+            <button>3 Day</button>
+            <span> | </span>
+            <button>5 Day</button>
+          </div>
+          <div className="forecast">
+            {this.state.weatherData ? (
+              <div>
+                {this.state.threeDay ? (
+                  <div className="threeday">
+                    <div>{this.to_getDay(this.state.weatherData.daily.data[0].time)}</div>
+                    <div>{this.to_getDay(this.state.weatherData.daily.data[1].time)}</div>
+                    <div>{this.to_getDay(this.state.weatherData.daily.data[2].time)}</div>
+                  </div>
+                ) : (
+                  <div className="five-day">Five Day Forecast</div>
+                )}{" "}
+              </div>
+            ) : null}
+          </div>
+        </div>
       </div>
     );
   }
@@ -123,7 +155,3 @@ export default App;
 // AIzaSyDNqPVVL6FhkDqru_Ve70lZkkH-JqX5tvA
 // AIzaSyDEPcm9glqHYP2SkAubicuE9A4pPlsZjI0
 // https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDEPcm9glqHYP2SkAubicuE9A4pPlsZjI0
-
-// To fix:
-// Set componentDidMount and do the axios spread and use Berkeley's lat & longitude's hardcoded in, until locate me is clicked.
-// Fix cors without using browser extension trick.
