@@ -1,6 +1,9 @@
 .App {
   text-align: center;
   font-family: "Alegreya Sans", sans-serif;
+  background-color: #89bfe4;
+  color: white;
+  height: 100vh;
 }
 
 .App-logo {
@@ -47,6 +50,7 @@
 }
 
 .city {
+  font-weight: 700;
   margin-top: 30px;
   font-size: 40px;
 }
@@ -94,6 +98,9 @@
   margin-bottom: 15px;
 }
 
+.bottom-summary {
+}
+
 .bottom-temp {
   font-size: 17px;
   margin-top: 5px;
@@ -101,4 +108,12 @@
 
 .vert-line {
   font-size: 25px;
+}
+
+.days-button {
+  border-radius: 50px;
+  width: 60px;
+  font-size: 14px;
+  height: 24px;
+  padding: 0;
 }

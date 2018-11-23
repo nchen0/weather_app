@@ -134,7 +134,7 @@ class App extends Component {
           <div>
             <ReactAnimatedWeather
               icon={this.getIcon(currently.icon)}
-              color={defaults.color}
+              color="yellow"
               size={200}
               animate={defaults.animate}
             />
@@ -156,7 +156,7 @@ class App extends Component {
           <div className="buttons">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="days-button btn btn-light"
               onClick={() => this.toggleThreeDay("three")}
             >
               3 Day
@@ -164,7 +164,7 @@ class App extends Component {
             <span className="vert-line"> | </span>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="days-button btn btn-light"
               onClick={() => this.toggleThreeDay("five")}
             >
               5 Day
@@ -179,11 +179,11 @@ class App extends Component {
                       <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
                       <ReactAnimatedWeather
                         icon={this.getIcon(daily[1].icon)}
-                        color="black"
+                        color="yellow"
                         size={100}
                         animate={defaults.animate}
                       />
-                      <div>{daily[1].summary}</div>
+                      <div className="bottom-summary">{daily[1].summary}</div>
                       <div className="bottom-temp">
                         {daily[1].temperatureMax.toFixed(0)}° | {daily[1].temperatureMin.toFixed(0)}
                         °
@@ -193,7 +193,7 @@ class App extends Component {
                       <div className="bottom-date">{this.to_getDay(daily[2].time)}</div>
                       <ReactAnimatedWeather
                         icon={this.getIcon(daily[2].icon)}
-                        color="black"
+                        color="yellow"
                         size={100}
                         animate={defaults.animate}
                       />
@@ -207,7 +207,7 @@ class App extends Component {
                       <div className="bottom-date">{this.to_getDay(daily[3].time)}</div>
                       <ReactAnimatedWeather
                         icon={this.getIcon(daily[3].icon)}
-                        color="black"
+                        color="yellow"
                         size={100}
                         animate={defaults.animate}
                       />
@@ -226,7 +226,7 @@ class App extends Component {
                       <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
                       <ReactAnimatedWeather
                         icon={this.getIcon(daily[1].icon)}
-                        color="black"
+                        color="white"
                         size={100}
                         animate={defaults.animate}
                       />
