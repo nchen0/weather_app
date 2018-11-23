@@ -102,7 +102,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("this.cityData is: ", this.state.cityData);
     const defaults = {
       icon: "CLEAR_DAY",
       color: "goldenrod",
@@ -124,190 +123,178 @@ class App extends Component {
 
     return (
       <div className="App">
-        <i onClick={this.locateMe} className="iframe fas fa-location-arrow" />
-        {this.state.cityData ? <div className="city">{cityState}</div> : <div>Houston, TX</div>}
-        <div className="date">
-          {days[today.getDay()]} {month} {today.getDate()}, {today.getFullYear()}
-        </div>
-
         {this.state.weatherData ? (
           <div>
-            <ReactAnimatedWeather
-              icon={this.getIcon(currently.icon)}
-              color="yellow"
-              size={200}
-              animate={defaults.animate}
-            />
-            <div className="main-temp">{currently.temperature.toFixed(0)}°</div>
-            <div className="main-summary">{currently.summary}</div>
-          </div>
-        ) : (
-          <div>
-            <ReactAnimatedWeather
-              icon="RAIN"
-              color={defaults.color}
-              size={200}
-              animate={defaults.animate}
-            />
-            <div>59°</div>
-          </div>
-        )}
-        <div className="bottom">
-          <div className="buttons">
-            <button
-              type="button"
-              className="days-button btn btn-light"
-              onClick={() => this.toggleThreeDay("three")}
-            >
-              3 Day
-            </button>
-            <span className="vert-line"> | </span>
-            <button
-              type="button"
-              className="days-button btn btn-light"
-              onClick={() => this.toggleThreeDay("five")}
-            >
-              5 Day
-            </button>
-          </div>
-          <div className="forecast">
-            {this.state.weatherData ? (
-              <div>
-                {this.state.threeDay ? (
-                  <div className="threedays">
-                    <div className="threeday">
-                      <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[1].icon)}
-                        color="yellow"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div className="bottom-summary">{daily[1].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[1].temperatureMax.toFixed(0)}° | {daily[1].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="threeday">
-                      <div className="bottom-date">{this.to_getDay(daily[2].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[2].icon)}
-                        color="yellow"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[2].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[2].temperatureMax.toFixed(0)}° | {daily[2].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="threeday">
-                      <div className="bottom-date">{this.to_getDay(daily[3].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[3].icon)}
-                        color="yellow"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[3].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[3].temperatureMax.toFixed(0)}° | {daily[3].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="fivedays">
-                    {" "}
-                    <div className="fiveday">
-                      {" "}
-                      <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[1].icon)}
-                        color="white"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[1].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[1].temperatureMax.toFixed(0)}° | {daily[1].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="fiveday">
-                      <div className="bottom-date">{this.to_getDay(daily[2].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[2].icon)}
-                        color="black"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[2].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[2].temperatureMax.toFixed(0)}° | {daily[2].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="fiveday">
-                      {" "}
-                      <div className="bottom-date">{this.to_getDay(daily[3].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[3].icon)}
-                        color="black"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[3].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[3].temperatureMax.toFixed(0)}° | {daily[3].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="fiveday">
-                      {" "}
-                      <div className="bottom-date">{this.to_getDay(daily[4].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[4].icon)}
-                        color="black"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[4].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[4].temperatureMax.toFixed(0)}° | {daily[4].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                    <div className="fiveday">
-                      {" "}
-                      <div className="bottom-date">{this.to_getDay(daily[5].time)}</div>
-                      <ReactAnimatedWeather
-                        icon={this.getIcon(daily[5].icon)}
-                        color="black"
-                        size={100}
-                        animate={defaults.animate}
-                      />
-                      <div>{daily[5].summary}</div>
-                      <div className="bottom-temp">
-                        {daily[5].temperatureMax.toFixed(0)}° | {daily[5].temperatureMin.toFixed(0)}
-                        °
-                      </div>
-                    </div>
-                  </div>
-                )}{" "}
+            {" "}
+            <div className="top">
+              <i onClick={this.locateMe} className="iframe fas fa-location-arrow" />{" "}
+              <div className="city">{cityState}</div>
+            </div>
+            <div className="date">
+              {days[today.getDay()]} {month} {today.getDate()}, {today.getFullYear()}
+            </div>
+            <div>
+              <ReactAnimatedWeather
+                icon={this.getIcon(currently.icon)}
+                color="yellow"
+                size={200}
+                animate={defaults.animate}
+              />
+              <div className="main-temp">{currently.temperature.toFixed(0)}°</div>
+              <div className="main-summary">{currently.summary}</div>
+            </div>
+            <div className="bottom">
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="days-button btn btn-light"
+                  onClick={() => this.toggleThreeDay("three")}
+                >
+                  3 Day
+                </button>
+                <span className="vert-line"> | </span>
+                <button
+                  type="button"
+                  className="days-button btn btn-light"
+                  onClick={() => this.toggleThreeDay("five")}
+                >
+                  5 Day
+                </button>
               </div>
-            ) : null}
+              <div className="forecast">
+                <div>
+                  {this.state.threeDay ? (
+                    <div className="threedays">
+                      <div className="threeday">
+                        <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[1].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div className="bottom-summary">{daily[1].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[1].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[1].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="threeday">
+                        <div className="bottom-date">{this.to_getDay(daily[2].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[2].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[2].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[2].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[2].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="threeday">
+                        <div className="bottom-date">{this.to_getDay(daily[3].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[3].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[3].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[3].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[3].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="fivedays">
+                      {" "}
+                      <div className="fiveday">
+                        {" "}
+                        <div className="bottom-date">{this.to_getDay(daily[1].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[1].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[1].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[1].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[1].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="fiveday">
+                        <div className="bottom-date">{this.to_getDay(daily[2].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[2].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[2].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[2].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[2].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="fiveday">
+                        {" "}
+                        <div className="bottom-date">{this.to_getDay(daily[3].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[3].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[3].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[3].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[3].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="fiveday">
+                        {" "}
+                        <div className="bottom-date">{this.to_getDay(daily[4].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[4].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[4].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[4].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[4].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                      <div className="fiveday">
+                        {" "}
+                        <div className="bottom-date">{this.to_getDay(daily[5].time)}</div>
+                        <ReactAnimatedWeather
+                          icon={this.getIcon(daily[5].icon)}
+                          color="yellow"
+                          size={100}
+                          animate={defaults.animate}
+                        />
+                        <div>{daily[5].summary}</div>
+                        <div className="bottom-temp">
+                          {daily[5].temperatureMax.toFixed(0)}° |{" "}
+                          {daily[5].temperatureMin.toFixed(0)}°
+                        </div>
+                      </div>
+                    </div>
+                  )}{" "}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     );
   }
 }
 
 export default App;
-
-// AIzaSyDNqPVVL6FhkDqru_Ve70lZkkH-JqX5tvA
-// AIzaSyDEPcm9glqHYP2SkAubicuE9A4pPlsZjI0
-// https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDEPcm9glqHYP2SkAubicuE9A4pPlsZjI0

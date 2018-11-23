@@ -37,7 +37,7 @@
   margin-top: 50px;
   width: 400px;
   height: 225px;
-  border-right: 1px solid grey;
+  border-right: 1px solid rgb(211, 211, 211);
 }
 
 .threeday:last-child,
@@ -47,6 +47,11 @@
 
 .fiveday {
   width: 300px;
+}
+
+.top {
+  display: flex;
+  justify-content: center;
 }
 
 .city {
@@ -61,9 +66,14 @@
 }
 
 .iframe {
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 15px;
-  padding: 5px;
+  padding: 6px;
+  padding-right: 7px;
+  padding-top: 7px;
+  position: fixed;
+  left: 20px;
+  top: 20px;
 }
 
 .iframe:hover {
@@ -96,9 +106,6 @@
   font-weight: bold;
   font-size: 22px;
   margin-bottom: 15px;
-}
-
-.bottom-summary {
 }
 
 .bottom-temp {
