@@ -116,13 +116,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <button onClick={this.locateMe}>Locate Me</button>
+        <i onClick={this.locateMe} class="iframe fas fa-location-arrow" />
         {this.state.cityData ? (
-          <div>{this.state.cityData.results[4].formatted_address}</div>
+          <div className="city">{this.state.cityData.results[4].formatted_address}</div>
         ) : (
           <div>Houston, TX</div>
         )}
-        <div>
+        <div className="date">
           {days[today.getDay()]} {month} {today.getDate()}, {today.getFullYear()}
         </div>
 
@@ -134,8 +134,8 @@ class App extends Component {
               size={200}
               animate={defaults.animate}
             />
-            <div>{currently.temperature.toFixed(0)}°</div>
-            <div>{currently.summary}</div>
+            <div className="main-temp">{currently.temperature.toFixed(0)}°</div>
+            <div className="main-summary">{currently.summary}</div>
           </div>
         ) : (
           <div>

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100vh;
+  font-family: "Alegreya Sans", sans-serif;
 }
 
 .App-logo {
@@ -43,4 +45,41 @@
 
 .fiveday {
   width: 300px;
+}
+
+.city {
+  margin-top: 30px;
+  font-size: 40px;
+}
+
+.date {
+  font-size: 22px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.iframe {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.iframe:hover {
+  cursor: pointer;
+  color: grey;
+}
+
+.iframe:active {
+  border: 1px solid blue;
+}
+
+.main-temp {
+  margin-top: 25px;
+  font-size: 55px;
+}
+
+.main-summary {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
