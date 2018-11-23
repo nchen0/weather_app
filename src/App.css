@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  height: 100vh;
   font-family: "Alegreya Sans", sans-serif;
 }
 
@@ -34,8 +33,8 @@
 .fiveday {
   margin-top: 50px;
   width: 400px;
-  height: 300px;
-  border-right: 1px solid black;
+  height: 225px;
+  border-right: 1px solid grey;
 }
 
 .threeday:last-child,
@@ -54,8 +53,7 @@
 
 .date {
   font-size: 22px;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .iframe {
@@ -74,12 +72,33 @@
 }
 
 .main-temp {
-  margin-top: 25px;
+  margin-left: 20px;
+  margin-top: 5px;
   font-size: 55px;
+  margin-bottom: -5px;
 }
 
 .main-summary {
   font-size: 20px;
-  margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.buttons {
+  margin-top: 35px;
+  margin-bottom: -25px;
+}
+
+.bottom-date {
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.bottom-temp {
+  font-size: 17px;
+  margin-top: 5px;
+}
+
+.vert-line {
+  font-size: 25px;
 }
